@@ -3,6 +3,7 @@ import 'package:expense_trucker/app/providr/locale_provider.dart';
 import 'package:expense_trucker/app/providr/theme_moodProvider.dart';
 import 'package:expense_trucker/app/routes.dart';
 import 'package:expense_trucker/app/splash_screen.dart';
+import 'package:expense_trucker/home/main_nav/provider/bottom_navProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,6 +21,7 @@ class ExpenseTrucker extends StatefulWidget {
 class _ExpenseTruckerState extends State<ExpenseTrucker> {
   final ThemeModeProvider _themeModeProvider = ThemeModeProvider();
   final LocaleModeProvider _localeModeProvider = LocaleModeProvider();
+  
 
   @override
   void initState() {
@@ -38,7 +40,9 @@ class _ExpenseTruckerState extends State<ExpenseTrucker> {
         ),
 
         ChangeNotifierProvider<LocaleModeProvider>.value(
-            value: _localeModeProvider)
+            value: _localeModeProvider),
+        
+        ChangeNotifierProvider(create: (_)=>MainNavProvider())
 
       ],
       child: Consumer<LocaleModeProvider>(

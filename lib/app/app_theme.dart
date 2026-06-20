@@ -20,13 +20,28 @@ class AppTheme{
 
       textTheme: TextTheme(
           headlineMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.dark
+
+          ),
+
+          headlineLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.white
+          ),
+
+          headlineSmall: TextStyle(
             fontWeight: FontWeight.w600,
+            color: AppColors.white
 
           ),
 
           labelLarge: TextStyle(
-              fontWeight: FontWeight.w400,
-          )
+              fontWeight: FontWeight.w800,
+            color: AppColors.grey
+          ),
+
+
 
       ),
 
@@ -44,8 +59,13 @@ class AppTheme{
 
   static final ThemeData _darkThemeData = ThemeData(
       brightness: Brightness.dark,
+
+
       progressIndicatorTheme: ProgressIndicatorThemeData(
       ),
+
+
+
 
       inputDecorationTheme: _inputDecorationTheme,
       filledButtonTheme: _filledButtonThemeData
