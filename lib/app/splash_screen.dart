@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:expense_trucker/app/assetsImage_path.dart';
-import 'package:expense_trucker/home/screen/home_screen.dart';
+import 'package:expense_trucker/home/main_nav/bottom_nav/botttm_nav.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     Timer(const Duration(seconds: 8), () {
       Navigator.pushReplacementNamed(context,
-          HomeScreen.name);
+          MainNavBar.name);
 
     });
   }

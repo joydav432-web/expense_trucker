@@ -46,9 +46,9 @@ class _MainNavBarState extends State<MainNavBar> {
                 items: [
 
                   BottomNavigationBarItem(icon: Icon(Icons.dashboard),label: "dashboard"),
-                  BottomNavigationBarItem(icon: Icon(Icons.dashboard),label: "category"),
-                  BottomNavigationBarItem(icon: Icon(Icons.shopping_basket_outlined),label: "cart"),
-                  BottomNavigationBarItem(icon: Icon(Icons.favorite_outline),label: "wishlist")
+                  BottomNavigationBarItem(icon: Icon(Icons.local_activity_outlined),label: "activity"),
+                  BottomNavigationBarItem(icon: Icon(Icons.add_card_outlined),label: "add"),
+                  BottomNavigationBarItem(icon: Icon(Icons.settings),label: "settings")
                 ]),
           );
         }
