@@ -1,8 +1,12 @@
 import 'dart:io';
-import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../app/providr/theme_moodProvider.dart';
+import 'package:provider/provider.dart';
+
+import '../app/shered/change_theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -111,6 +115,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  final ThemeModeProvider themeModeProvider = ThemeModeProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,51 +158,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
               const SizedBox(height: 30,),
 
-            Container(
-              height: 80,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: Colors.grey.shade400),
+
+        Consumer<ThemeModeProvider>(
+        builder: (context, themeProvider, child) {
+        bool isDark = themeProvider.themeMode == ThemeMode.dark;
+
+        return Container(
+        height: 80,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: isDark ? Colors.grey[900] : Colors.grey[200],
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          children: [
+            Text(
+              'Theme',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : Colors.black,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Row(
-                  children: [
-
-                    Text(
-                      'Theme',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-
-
-                    Expanded(
-                      child: ActionSlider.standard(
-                        height: 50,
-                        child: const Text(
-                          'Slide to Switch',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        action: (controller) async {
-                          controller.loading();
-
-                          await Future.delayed(const Duration(seconds: 2));
-                          controller.success();
-
-                          await Future.delayed(const Duration(seconds: 1));
-                          controller.reset();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-
+            ),
+            const SizedBox(width: 15),
+            ChangeTheme(isDark: isDark),
+          ],
+        ),
+      );
+    },
+    ),
 
 
             ]
@@ -206,3 +196,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
+

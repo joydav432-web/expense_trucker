@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+
 class AddScreenAppbar extends StatelessWidget implements PreferredSizeWidget {
   const AddScreenAppbar({
     super.key,
+    required this.type,
   });
+
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +17,15 @@ class AddScreenAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            "NEW EXPENSES",
-            style: TextStyle(
+          Text(
+            "NEW ${type.toUpperCase()}",
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
-          Row(
+          const Row(
             children: [
               Icon(
                 Icons.check_circle,
@@ -44,6 +48,5 @@ class AddScreenAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
