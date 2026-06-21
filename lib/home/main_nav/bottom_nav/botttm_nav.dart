@@ -1,6 +1,8 @@
 
+import 'package:expense_trucker/activity/activity_screen.dart';
 import 'package:expense_trucker/add/screen/add_screen.dart';
 import 'package:expense_trucker/home/screen/home_screen.dart';
+import 'package:expense_trucker/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +22,9 @@ class _MainNavBarState extends State<MainNavBar> {
 
   final List <Widget> _screens =[
     HomeScreen(),
-    HomeScreen(),
+    ActivityScreen(),
     HomeAddScreen(),
-    HomeScreen(),
+    SettingsScreen()
 
 
 

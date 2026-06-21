@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AmountBox extends StatefulWidget {
-  const AmountBox({super.key});
+  const AmountBox({super.key, required this.controller});
+
+  final TextEditingController controller;
 
   @override
   State<AmountBox> createState() => _AmountBoxState();
 }
 
 class _AmountBoxState extends State<AmountBox> {
-  final TextEditingController amountController = TextEditingController();
 
-  @override
-  void dispose() {
-    amountController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +54,7 @@ class _AmountBoxState extends State<AmountBox> {
                 SizedBox(
                   width: 180,
                   child: TextField(
-                    controller: amountController,
+                    controller: widget.controller,
 
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,

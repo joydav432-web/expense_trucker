@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class TitleFiled extends StatelessWidget {
   const TitleFiled({
-    super.key,
+    super.key, required this.controller,
   });
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,8 @@ class TitleFiled extends StatelessWidget {
           width: 450,
           height: 80,
           child: TextFormField(
+            controller: controller,
+
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return "Expense title required";

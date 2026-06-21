@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 import '../l10n/app_localizations.dart';
+import '../provider_for_save_data/save_provider.dart';
 
 class ExpenseTrucker extends StatefulWidget {
   const ExpenseTrucker({super.key});
@@ -42,33 +43,42 @@ class _ExpenseTruckerState extends State<ExpenseTrucker> {
         ChangeNotifierProvider<LocaleModeProvider>.value(
             value: _localeModeProvider),
         
-        ChangeNotifierProvider(create: (_)=>MainNavProvider())
+        ChangeNotifierProvider(create: (_)=>MainNavProvider()),
+
+        ChangeNotifierProvider(
+            create:(_)=>ExpenseProvider()
+              ..loadExpense()
+        ),
 
       ],
-      child: Consumer<LocaleModeProvider>(
-        builder: (context,localeModeProvider,_) {
-          return Consumer<ThemeModeProvider>(
-            builder: (context,themeModeProvider,_) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                initialRoute: SplashScreen.name,
-                onGenerateRoute: AppRoutes.onGenarateRoute,
-                theme: AppTheme.lightTheme,
-                darkTheme: AppTheme.darkTheme,
-                themeMode:themeModeProvider.themeMode,
+      child: Consumer<ExpenseProvider>(
+        builder: (context,expenseProvider,_) {
+          return Consumer<LocaleModeProvider>(
+            builder: (context,localeModeProvider,_) {
+              return Consumer<ThemeModeProvider>(
+                builder: (context,themeModeProvider,_) {
+                  return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    initialRoute: SplashScreen.name,
+                    onGenerateRoute: AppRoutes.onGenarateRoute,
+                    theme: AppTheme.lightTheme,
+                    darkTheme: AppTheme.darkTheme,
+                    themeMode:themeModeProvider.themeMode,
 
 
-                localizationsDelegates: [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
+                    localizationsDelegates: [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
 
-                supportedLocales:localeModeProvider.supportedLocal,
+                    supportedLocales:localeModeProvider.supportedLocal,
 
-                locale: localeModeProvider.currentLocal,
+                    locale: localeModeProvider.currentLocal,
 
+                  );
+                }
               );
             }
           );
