@@ -24,6 +24,14 @@ class SaveExpenses extends StatelessWidget {
   final TextEditingController categoryController;
   final String type;
 
+  void _clearAll() {
+    amountController.clear();
+    titleController.clear();
+    categoryController.clear();
+    dateController.clear();
+    descController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -53,6 +61,7 @@ class SaveExpenses extends StatelessWidget {
               ),
             );
 
+            _clearAll(); // Clear fields after saving
             Provider.of<MainNavProvider>(context, listen: false).changeIndex(0);
           }
         },

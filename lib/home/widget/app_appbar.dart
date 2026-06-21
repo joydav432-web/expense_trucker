@@ -1,11 +1,10 @@
-
-import 'package:expense_trucker/app/app_theme.dart';
+import 'dart:io';
+import 'package:expense_trucker/app/providr/user_provider.dart';
 import 'package:expense_trucker/home/widget/appbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../app/assetsImage_path.dart';
-
-class AppAppbar extends StatelessWidget implements PreferredSizeWidget{
+class AppAppbar extends StatelessWidget implements PreferredSizeWidget {
   const AppAppbar({
     super.key,
   });
@@ -13,34 +12,36 @@ class AppAppbar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8,right: 8),
+      padding: const EdgeInsets.only(left: 8, right: 8),
       child: AppBar(
-
-
-
-
-        leading: GestureDetector(
-            onTap: (){},
-          child: CircleAvatar(
-            backgroundImage: AssetImage(ImagePath.profileImage),
-            radius: 30,
-          ),
+        leading: Consumer<UserProvider>(
+          builder: (context, userProvider, _) {
+            return GestureDetector(
+              onTap: () {},
+              child: CircleAvatar(
+                backgroundColor: Colors.grey.shade300,
+                backgroundImage: userProvider.profileImagePath != null
+                    ? FileImage(File(userProvider.profileImagePath!))
+                    : null,
+                radius: 30,
+                child: userProvider.profileImagePath == null
+                    ? const Icon(Icons.person, color: Colors.grey)
+                    : null,
+              ),
+            );
+          },
         ),
-
-        title: Text("Financial Clarity",style: TextTheme.of(context).headlineMedium,),
-
+        title: Text(
+          "Financial Clarity",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
         actions: [
-          AppbarIcon(onTap: (){},
-              icon: Icons.notifications_active)
-
+          AppbarIcon(onTap: () {}, icon: Icons.notifications_active)
         ],
-
-
       ),
     );
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

@@ -27,6 +27,8 @@ class _HomeAddScreenState extends State<HomeAddScreen> {
   final dateController = TextEditingController();
   final descController = TextEditingController();
 
+  String? _lastType;
+
   @override
   void dispose() {
     amountController.dispose();
@@ -37,10 +39,27 @@ class _HomeAddScreenState extends State<HomeAddScreen> {
     super.dispose();
   }
 
+  void _clearAll() {
+    amountController.clear();
+    titleController.clear();
+    categoryController.clear();
+    dateController.clear();
+    descController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bottomNavProvider = Provider.of<MainNavProvider>(context);
     final transactionType = Provider.of<MainNavProvider>(context).transactionType;
+    
+    // Automatically clear fields when switching between Income and Expense modes
+    if (_lastType != null && _lastType != transactionType) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _clearAll();
+      });
+    }
+    _lastType = transactionType;
+
+    final isIncome = transactionType == "Income";
 
     return Scaffold(
       appBar: AddScreenAppbar(type: transactionType),
@@ -58,11 +77,16 @@ class _HomeAddScreenState extends State<HomeAddScreen> {
                   controller: titleController,
                 ),
                 const SizedBox(height: 24),
-                CategorySection(controller: categoryController),
-                const SizedBox(height: 24),
+                if (!isIncome) ...[
+                  CategorySection(controller: categoryController),
+                  const SizedBox(height: 24),
+                ],
                 DateInputExample(controller: dateController),
                 const SizedBox(height: 24),
-                AddDescription(controller: descController),
+                if (!isIncome) ...[
+                  AddDescription(controller: descController),
+                  const SizedBox(height: 24),
+                ],
                 const SizedBox(height: 32),
                 SaveExpenses(
                   formKey: _formKey,
@@ -74,7 +98,13 @@ class _HomeAddScreenState extends State<HomeAddScreen> {
                   type: transactionType,
                 ),
                 const SizedBox(height: 12),
-                const CancelButton(),
+                CancelButton(
+                  amountController: amountController,
+                  titleController: titleController,
+                  categoryController: categoryController,
+                  dateController: dateController,
+                  descController: descController,
+                ),
                 const SizedBox(height: 20),
               ],
             ),

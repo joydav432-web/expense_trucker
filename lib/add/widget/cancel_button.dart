@@ -3,7 +3,28 @@ import 'package:provider/provider.dart';
 import '../../home/main_nav/provider/bottom_navProvider.dart';
 
 class CancelButton extends StatelessWidget {
-  const CancelButton({super.key});
+  const CancelButton({
+    super.key,
+    required this.amountController,
+    required this.titleController,
+    required this.categoryController,
+    required this.dateController,
+    required this.descController,
+  });
+
+  final TextEditingController amountController;
+  final TextEditingController titleController;
+  final TextEditingController categoryController;
+  final TextEditingController dateController;
+  final TextEditingController descController;
+
+  void _clearAll() {
+    amountController.clear();
+    titleController.clear();
+    categoryController.clear();
+    dateController.clear();
+    descController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +33,7 @@ class CancelButton extends StatelessWidget {
       height: 55,
       child: ElevatedButton(
         onPressed: () {
+          _clearAll();
           Provider.of<MainNavProvider>(context, listen: false).changeIndex(0);
         },
         style: ElevatedButton.styleFrom(

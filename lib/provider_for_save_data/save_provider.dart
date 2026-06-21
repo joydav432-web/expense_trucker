@@ -9,6 +9,20 @@ class ExpenseProvider extends ChangeNotifier{
 
   List<ExpenseModel> expenses=[];
 
+  double get totalIncome {
+    return expenses
+        .where((e) => e.type == "Income")
+        .fold(0.0, (sum, item) => sum + (double.tryParse(item.amount) ?? 0.0));
+  }
+
+  double get totalExpenses {
+    return expenses
+        .where((e) => e.type == "Expense")
+        .fold(0.0, (sum, item) => sum + (double.tryParse(item.amount) ?? 0.0));
+  }
+
+  double get totalBalance => totalIncome - totalExpenses;
+
 
 
   Future<void> addExpense(
